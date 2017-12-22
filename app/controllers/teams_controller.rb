@@ -1,12 +1,15 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.all
-    render json: @teams
+    render json: Team.all
   end
 
   def create
     team = Team.create(team_params)
-    render json: team if team.persisted?
+    if team.persisted?
+      render json: team
+    else
+      render json: "Bad Thing", status: 400
+    end
   end
 
   private

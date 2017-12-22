@@ -1,12 +1,11 @@
 class MembersController < ApplicationController
 
   def index
-    members = Member.for_team(params[:team_id])
-    render json: members
+    render json: Member.all
   end
 
   def create
-    member = Member.create({name: member_params[:name], team_id: params[:team_id]})
+    member = Member.create(member_params)
     render json: member if member.persisted?
   end
 
